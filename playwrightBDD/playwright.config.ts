@@ -11,7 +11,7 @@ export default defineConfig({
     reporter: 'html',
     fullyParallel: true,
     webServer: {
-        command: 'cd ../automation-practice-store && npm run start',
+        command: 'cd ../automation-practice-store && npm run seed && npm run start',
         url: 'http://localhost:3000',
         reuseExistingServer: !process.env.CI,
         timeout: 120 * 1000,
