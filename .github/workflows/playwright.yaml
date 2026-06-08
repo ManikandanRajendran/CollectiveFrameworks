@@ -1,0 +1,37 @@
+name: Playwright BDD Tests
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # We cache yarn because it handles your actual test suite
+          cache: yarn
+          cache-dependency-path: 'playwrightBDD/yarn.lock'
+          
+      - name: Install Website Dependencies (NPM)
+        working-directory: ./automation-practice-store
+        run: npm ci # 'npm ci' is the npm equivalent of 'yarn install --immutable'
+        
+      - name: Install Testing Dependencies (Yarn)
+        working-directory: ./playwrightBDD
+        run: yarn install --immutable
+        
+      - name: Install Playwright Chromium Browser
+        run: npx playwright install --with-deps chromium
+        
+      - name: Run Playwright BDD tests
+        working-directory: ./playwrightBDD
+        run: yarn test
+        
+      - name: Upload HTML Report on Failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwrightBDD/playwright-report/
+          retention-days: 14

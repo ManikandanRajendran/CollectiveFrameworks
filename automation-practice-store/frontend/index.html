@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation Practice Store</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div id="app">
+    <header class="site-header" data-testid="site-header">
+      <div class="header-inner">
+        <a href="#/login" class="logo" data-testid="logo-link">AutoStore</a>
+        <nav id="main-nav" class="main-nav hidden" data-testid="main-nav" aria-label="Main navigation">
+          <a href="#/products" data-testid="nav-products" class="nav-link">Products</a>
+          <a href="#/profile" data-testid="nav-profile" class="nav-link">Profile</a>
+          <a href="#/cart" data-testid="nav-cart" class="nav-link">
+            Cart <span id="cart-badge" data-testid="cart-badge" class="badge hidden">0</span>
+          </a>
+        </nav>
+        <div class="header-actions" data-testid="header-actions">
+          <span id="user-greeting" data-testid="user-greeting" class="user-greeting hidden"></span>
+          <button id="logout-btn" data-testid="logout-button" class="btn btn-outline hidden" type="button">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="breadcrumb" data-testid="breadcrumb" aria-label="Breadcrumb">
+      <ol id="breadcrumb-list"></ol>
+    </nav>
+
+    <main id="main-content" data-testid="main-content" class="main-content"></main>
+
+    <footer class="site-footer" data-testid="site-footer">
+      <p>Automation Practice Store — built for Playwright, Cypress &amp; API testing</p>
+    </footer>
+  </div>
+
+  <div id="toast-container" data-testid="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <div id="modal-overlay" data-testid="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal" data-testid="product-modal">
+      <button type="button" class="modal-close" data-testid="modal-close-btn" aria-label="Close">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/router.js"></script>
+  <script src="/js/pages/login.js"></script>
+  <script src="/js/pages/register.js"></script>
+  <script src="/js/pages/products.js"></script>
+  <script src="/js/pages/profile.js"></script>
+  <script src="/js/pages/cart.js"></script>
+  <script src="/js/pages/checkout.js"></script>
+  <script src="/js/pages/confirmation.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "automation-practice-store",
+  "version": "1.0.0",
+  "description": "Commercial demo store for Playwright, Cypress, and API automation practice",
+  "private": true,
+  "scripts": {
+    "seed": "node backend/scripts/seedData.js",
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "uuid": "^11.1.0",
+    "xlsx": "^0.18.5"
+  }
+}
