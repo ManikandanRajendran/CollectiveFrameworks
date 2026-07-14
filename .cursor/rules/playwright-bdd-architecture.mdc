@@ -1,0 +1,17 @@
+---
+description: Playwright BDD 4-layer architecture for playwrightBDD/
+globs: playwrightBDD/**/*
+alwaysApply: false
+---
+
+# Playwright BDD Architecture
+
+When editing files under playwrightBDD/:
+
+1. Features describe behaviour in Gherkin — no locators or implementation
+2. Steps are thin glue — call page object methods only
+3. Page objects own all locators, actions, and assertions
+4. Fixtures in steps/steps.ts provide one page object per test (parallel-safe)
+5. Never put locators in step definition files
+6. Gherkin parameters are function args after the fixtures object
+7. Run bddgen after changing features; run yarn test to verify

@@ -1,0 +1,24 @@
+{
+    "success": true,
+    "data": {
+        "items": [
+            {
+                "id": "75f5e63b-cb0d-483e-bab1-8aa2efee728c",
+                "productId": "prod-008",
+                "name": "Smart Watch",
+                "category": "electronics",
+                "price": 199.99,
+                "quantity": 1,
+                "lineTotal": 199.99,
+                "image": "⌚"
+            }
+        ],
+        "summary": {
+            "itemCount": 1,
+            "subtotal": 199.99,
+            "tax": 15.999200000000002,
+            "shipping": 0,
+            "total": 215.9892
+        }
+    }
+}

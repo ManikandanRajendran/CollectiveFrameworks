@@ -1,0 +1,27 @@
+{
+  "name": "cypressbdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:feature": "cypress run --spec",
+    "cy:run:mock": "cypress run --env TAGS='@mock'",
+    "cy:run:integration": "cypress run --env TAGS='@integration'",
+    "cy:report": "node scripts/generate-report.js",
+    "cy:test": "cypress run && node scripts/generate-report.js",
+    "cy:test:feature": "cypress run --spec"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/cypress-cucumber-preprocessor": "^4.0.5",
+    "cypress": "^15.18.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "typescript": "^5.8.3"
+  }
+}

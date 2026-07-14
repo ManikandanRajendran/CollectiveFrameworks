@@ -1,0 +1,18 @@
+---
+description: Locator priority for automation-practice-store and Playwright tests
+globs: playwrightBDD/**/*.ts
+alwaysApply: false
+---
+
+# Locator Priority
+
+Prefer locators in this order:
+
+1. `page.getByTestId('...')` — matches data-testid (NOT html id)
+2. `page.getByRole('button', { name: '...' })` — when element has accessible name
+3. `page.getByLabel('...')` / `page.getByPlaceholder('...')`
+4. `page.locator('#id')` or CSS — last resort
+
+Notes:
+- getByTestId('username') finds data-testid="username", not id="username"
+- App uses data-testid attributes (e.g. username-input, password-input, login-error)

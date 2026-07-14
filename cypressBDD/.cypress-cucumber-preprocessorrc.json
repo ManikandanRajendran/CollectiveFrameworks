@@ -1,0 +1,8 @@
+{
+  "stepDefinitions": "steps",
+  "cucumberJson": {
+    "generate": true,
+    "outputFolder": "reports/cucumber-json",
+    "fileSuffix": ".cucumber"
+  }
+}

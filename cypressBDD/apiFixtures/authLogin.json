@@ -1,0 +1,23 @@
+{
+    "success": true,
+    "message": "Login successful",
+    "data": {
+        "token": "706223dd-8f09-499a-aa8c-08b1bf3c6533",
+        "user": {
+            "id": "user-001",
+            "username": "mockedUser",
+            "email": "demo@automationstore.com",
+            "firstName": "mockedUser",
+            "lastName": "Tester",
+            "phone": "555-0100",
+            "address": "123 QA Boulevard",
+            "city": "San Francisco",
+            "state": "CA",
+            "zipCode": "94105",
+            "country": "US",
+            "preferredContact": "email",
+            "newsletter": "true",
+            "membershipTier": "gold"
+        }
+    }
+}

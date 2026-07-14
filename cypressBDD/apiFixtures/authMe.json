@@ -1,0 +1,19 @@
+{
+    "success": true,
+    "data": {
+        "id": "user-001",
+        "username": "mockedUser",
+        "email": "demo@automationstore.com",
+        "firstName": "mockedUser",
+        "lastName": "Tester",
+        "phone": "555-0100",
+        "address": "123 QA Boulevard",
+        "city": "San Francisco",
+        "state": "CA",
+        "zipCode": "94105",
+        "country": "US",
+        "preferredContact": "email",
+        "newsletter": "true",
+        "membershipTier": "gold"
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "count": 1,
+    "data": [
+      {
+        "id": "prod-008",
+        "name": "Mock Smart Watch",
+        "description": "A mocked product for Cypress intercept testing",
+        "price": "99.99",
+        "category": "electronics",
+        "stock": "10",
+        "image": "⌚"
+      }
+    ]
+  }
