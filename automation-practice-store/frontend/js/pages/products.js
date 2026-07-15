@@ -1,3 +1,13 @@
+const DEFAULT_FILTERS = {
+  search: '',
+  category: 'all',
+  sort: 'name',
+  minPrice: 0,
+  maxPrice: 250,
+  inStockOnly: false,
+  viewMode: 'grid',
+};
+
 const ProductsPage = {
   renderGeneration: 0,
   state: {
@@ -5,15 +15,7 @@ const ProductsPage = {
     categories: [],
     page: 1,
     pageSize: 6,
-    filters: {
-      search: '',
-      category: 'all',
-      sort: 'name',
-      minPrice: 0,
-      maxPrice: 250,
-      inStockOnly: false,
-      viewMode: 'grid',
-    },
+    filters: { ...DEFAULT_FILTERS },
   },
 
   async render() {
@@ -23,6 +25,8 @@ const ProductsPage = {
     }
 
     const generation = ++this.renderGeneration;
+    this.state.page = 1;
+    this.state.filters = { ...DEFAULT_FILTERS };
 
     setBreadcrumb([
       { label: 'Home', href: '#/products' },
@@ -143,12 +147,16 @@ const ProductsPage = {
   },
 
   async loadProducts(generation = this.renderGeneration) {
+    const { search, category, sort, maxPrice } = this.state.filters;
     const params = {
-      search: this.state.filters.search,
-      category: this.state.filters.category,
-      sort: this.state.filters.sort,
-      maxPrice: this.state.filters.maxPrice,
+      category,
+      sort,
+      maxPrice,
     };
+
+    if (search) {
+      params.search = search;
+    }
 
     const res = await API.products.list(params);
     if (generation !== this.renderGeneration) return;

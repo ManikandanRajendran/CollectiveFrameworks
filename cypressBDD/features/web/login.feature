@@ -7,6 +7,15 @@ Scenario: Verify user is able to login with valid credentials
     And user should be logged in
     And user should see the homepage
 
+Scenario: Verify user is able to login with valid credentials using data table
+    Given user is in login page
+    When user enters login credentials:
+        | username | testuser |
+        | password | Test@123 |
+    When user click login button
+    And user should be logged in
+    And user should see the homepage
+
 Scenario: Verify user is able to login and logout with valid credentials
     Given user is in login page
     And User enter the username as "testuser" and password as "Test@123"
@@ -30,8 +39,14 @@ Scenario Outline: Verify the error message when username/password is empty
     And User enter the username as "<username>" and password as "<password>"
     When user click login button
     Then the "<field>" field should show validation
-
     Examples:
     | username  | password       | field    |
     | demo      |                | password |
     |           | Test@123       | username |
+
+Scenario: Verify the error message when username/password is empty using data table
+    Given user is in login page
+    Then user attempts login with the following credentials and see proper error message:
+        | username  | password       | field    |
+        | demo      |                | password |
+        |           | Test@123       | username |

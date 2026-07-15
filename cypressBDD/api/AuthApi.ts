@@ -1,3 +1,5 @@
+const MAX_LOGIN_RESPONSE_MS = 2000;
+
 export interface LoginResponseBody {
     success: boolean;
     message: string;
@@ -60,15 +62,79 @@ export class AuthApi {
         });
     }
 
-    verifyLoginSuccess(expectedUsername: string) {
+    // ==========================================
+    // 🌐 1. HTTP METADATA VALIDATION
+    // ==========================================
+    private verifyLoginHttpMetadata(){
         const response = this.getLastResponse();
+        expect(response.status).to.eql(200);
+        expect(response.statusText).to.eql("OK")
+        expect(response.headers["content-type"]).to.include("application/json")
+    }
 
-        expect(response.status).to.eq(200);
-        expect(response.body.success).to.be.true;
-        expect(response.body.message).to.eq("Login successful");
-        expect(response.body.data?.token).to.be.a("string").and.not.be.empty;
-        expect(response.body.data?.user.username).to.eq(expectedUsername);
-        expect(response.body.data?.user.id).to.be.a("string").and.not.be.empty;
+    // ==========================================
+    // 📦 2. DATA INTEGRITY & SCHEMA VALIDATION
+    // ==========================================
+    private verifyLoginResponseSchema(){
+        const response = this.getLastResponse();
+        const body = response.body;
+        expect(body).to.have.property("success");
+        expect(body).to.have.property("message");
+        expect(body).to.have.property("data");
+        expect(body.data).to.have.property("user");
+        expect(body.data).to.have.property("token");
+        if (!body.data) {
+            throw new Error("Login response data is missing");
+        }
+        const user = body.data.user;    
+        const properties = ['id', 'username', 'email', 'firstName', 'lastName', 'phone', 'address'];
+        properties.forEach((prop) => {
+            expect(user).to.have.property(prop);
+            expect((user as Record<string, unknown>)[prop]).to.be.a("string").and.not.be.empty;
+        })
+    }
+
+    // ==========================================
+    // ⚡ 3. NON-FUNCTIONAL VALIDATION
+    // ==========================================
+    private verifyLoginNonFunctional(){
+        const response = this.getLastResponse();
+        const body = response.body;
+        const contentLength = response.headers["content-length"];
+        if (contentLength) {
+            expect(Number(contentLength)).to.be.lessThan(2 * 1024 * 1024); // 2 MB in bytes
+        }
+        expect(response.duration).to.be.lessThan(MAX_LOGIN_RESPONSE_MS);
+    }
+
+    // ==========================================
+    // 💼 4. FUNCTIONAL & BUSINESS LOGIC
+    // ==========================================
+    private verifyLoginBusinessLogic(expectedUsername: string){
+        const response = this.getLastResponse();
+        const body = response.body;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        expect(response.body.data?.user.email).to.match(emailRegex);
+        if (!body.data) {
+            throw new Error("Login response data is missing");
+        }
+        expect(body.success).to.be.true;
+        expect(body.message).to.eq("Login successful");
+        expect(body.data.user.username).to.eq(expectedUsername);
+
+    }
+    
+    verifyLoginSuccess(expectedUsername: string) {
+        this.verifyLoginHttpMetadata();
+        this.verifyLoginResponseSchema();
+        this.verifyLoginNonFunctional();
+        this.verifyLoginBusinessLogic(expectedUsername);
+
+        const token = this.getLastResponse().body.data?.token;
+        if (!token) {
+            throw new Error("No auth token in login response");
+        }
+        this.authToken = token;
     }
 
     verifyLoginFailure(status: number, message: string) {

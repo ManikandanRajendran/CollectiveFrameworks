@@ -13,6 +13,22 @@ Given(
     }
 );
 
+When("user enters login credentials:", (dataTable: any) => {
+    const credentials = dataTable.rowsHash();
+    loginPage.enterUsername(credentials.username);
+    loginPage.enterPassword(credentials.password);
+})
+
+Then("user attempts login with the following credentials and see proper error message:", (dataTable: any) => {
+    const credentials = dataTable.hashes();
+    cy.wrap(credentials).each((credential: any) => {
+        loginPage.enterUsername(credential.username);
+        loginPage.enterPassword(credential.password);
+        loginPage.clickLoginButton();
+        loginPage.verifyFieldValidation(credential.field);
+    });
+})
+
 When("user click login button", () => {
     loginPage.clickLoginButton();
 });
