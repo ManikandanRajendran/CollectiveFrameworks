@@ -2,13 +2,13 @@ import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 
 const testDir = defineBddConfig({
-    features: 'features/*.feature',
+    features: 'features/**/*.feature',
     steps: 'steps/*.ts',
 });
 
 export default defineConfig({
     testDir,
-    reporter: 'html',
+    reporter: [['html', {open: 'never'}]],
     fullyParallel: true,
     webServer: {
         command: 'cd ../automation-practice-store && npm run seed && npm run start',

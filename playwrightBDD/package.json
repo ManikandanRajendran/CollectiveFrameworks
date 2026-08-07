@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx bddgen && npx playwright test",
+    "test:web": "npx bddgen && npx playwright test web/ --workers=4 --headed",
+    "test:api": "npx bddgen && npx playwright test api/",
     "report": "npx playwright show-report"
   },
   "keywords": [],
@@ -13,6 +14,8 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.60.0",
-    "playwright-bdd": "^9.0.0"
+    "@types/node": "^26.1.2",
+    "playwright-bdd": "^9.0.0",
+    "typescript": "^7.0.2"
   }
 }

@@ -1,10 +1,11 @@
-import { Page, expect } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { BasePage, ROUTES } from "./basePage";
+import { mockLoginFailure } from "../mocks/authMocks";
 
-export class LoginPage {
-    constructor(private page: Page) {}
+export class LoginPage extends BasePage {
 
     async goto() {
-        await this.page.goto('/#/login');
+        await this.navigateTo(ROUTES.login);
     }
 
     async enterUsername(username: string) {
@@ -43,5 +44,21 @@ export class LoginPage {
         const fieldLocator = this.page.getByTestId(`${field}-input`);
         await expect(fieldLocator).toHaveJSProperty('validity.valueMissing', true);
         await expect(this.page.getByRole('button', { name: 'Login' })).toBeVisible();
+    }
+
+    async login(username: string, password: string) {
+        await this.goto();
+        await this.enterUsername(username);
+        await this.enterPassword(password);
+        await this.clickLoginButton();
+        await this.verifyLoggedIn();
+    }
+    async loginAndVerifyHomepage(username: string, password: string) {
+        await this.login(username, password);
+        await this.verifyHomePage();
+    }
+
+    async mockLoginApiFailure(message: string) {
+        await mockLoginFailure(this.page, message);
     }
 }
